@@ -1,5 +1,4 @@
 # PyBook
-## Final project for Advanced Programming fall 2018
 **Team Members**
   * Sumner Bradley  sumner.bradley@ucdenver.edu
   * Daniel Cahoon	  daniel.cahoon@ucdenver.edu
