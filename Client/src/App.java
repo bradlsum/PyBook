@@ -13,82 +13,94 @@ public class App {
     ArrayList<User> userInfo = new ArrayList<User>();
 
     public static void main(String [] args){
-        int PORT;
-        BufferedReader fromServer;
-        PrintStream SendServer;
-        Scanner serverInput = new Scanner(System.in);
-//        System.out.println("Enter the port number to connect to server.");
-//        PORT = serverInput.nextInt();
-        PORT = 65432;
+        int PORT = 65432;
+        Client client = new Client(PORT); //streams and connections are setup in client constructor, need to terminate connections using client.terminateConnections()
 
-        try{
-            Socket client = new Socket("127.0.0.1", PORT);
-            System.out.println("Connection established.");
-            Scanner input = new Scanner(System.in);
-            String firstName, lastName, password, Cpassword, email, userName, DateOfBirth;
-            System.out.println("You are now in the sign up page!");
-            System.out.println("Please enter the following information below ");
-            System.out.print("First Name: ");
-            firstName = input.nextLine();
-            System.out.print("\nLast Name: ");
-            lastName = input.nextLine();
-            System.out.print("\nEmail: ");
-            email = input.nextLine();
-            System.out.print("\nUsername: ");
-            userName = input.nextLine();
-            System.out.print("\nPassword: ");
-            password = input.nextLine();
-            System.out.print("\nConfirm Password: ");
-            Cpassword = input.nextLine();
-            System.out.print("\nDate Of Birth: ");
-            DateOfBirth = input.nextLine();
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Welcome to PyBook!\nPlease choose an option");
+        System.out.println("1.-Log in");
+        System.out.println("2.-Create an account");
+        int selection = input.nextInt();
+        switch (selection){
+
+            case 1:
+                System.out.print("Username: ");
+                String username = input.nextLine();
+                System.out.print("Password: ");
+                String password = input.nextLine();
+
+                User theUser = client.logIn(username,password); //the user should have the correct user given credentials
+
+                break;
 
 
-            while(!validatePassword(password, Cpassword))
-            {
-                System.out.println("The information you entered is incorrect, please enter your correct information below.");
-                System.out.print("First Name: ");
-                firstName = input.nextLine();
-                System.out.print("\nLast Name: ");
-                lastName = input.nextLine();
-                System.out.print("\nEmail: ");
-                email = input.nextLine();
-                System.out.print("\nUsername: ");
-                userName = input.nextLine();
-                System.out.print("\nPassword: ");
-                password = input.nextLine();
-                System.out.print("\nConfirm Password: ");
-                Cpassword = input.nextLine();
-                System.out.print("\nDate Of Birth: ");
-                DateOfBirth = input.nextLine();
-            }
-            User user = new User(firstName, lastName, email, userName, password, Cpassword, DateOfBirth);
-            SendServer = new PrintStream(client.getOutputStream());
-            SendServer.println(firstName);
-            SendServer.println(lastName);
-            SendServer.println(email);
-            SendServer.println(userName);
-            SendServer.println(password);
-            SendServer.println(Cpassword);
-            SendServer.println(DateOfBirth);
+            case 2:
+
+                try{
+
+                    String firstName, lastName, Cpassword, email, userName, DateOfBirth;
+                    System.out.println("You are now in the sign up page!");
+                    System.out.println("Please enter the following information below ");
+                    System.out.print("First Name: ");
+                    firstName = input.nextLine();
+                    System.out.print("\nLast Name: ");
+                    lastName = input.nextLine();
+                    System.out.print("\nEmail: ");
+                    email = input.nextLine();
+                    System.out.print("\nUsername: ");
+                    userName = input.nextLine();
+                    System.out.print("\nPassword: ");
+                    password = input.nextLine();
+                    System.out.print("\nConfirm Password: ");
+                    Cpassword = input.nextLine();
+                    System.out.print("\nDate Of Birth: ");
+                    DateOfBirth = input.nextLine();
 
 
-            System.out.println("Welcome " + userName + " you are signed in!");
+                    while(!validatePassword(password, Cpassword))
+                    {
+                        System.out.println("The information you entered is incorrect, please enter your correct information below.");
+                        System.out.print("First Name: ");
+                        firstName = input.nextLine();
+                        System.out.print("\nLast Name: ");
+                        lastName = input.nextLine();
+                        System.out.print("\nEmail: ");
+                        email = input.nextLine();
+                        System.out.print("\nUsername: ");
+                        userName = input.nextLine();
+                        System.out.print("\nPassword: ");
+                        password = input.nextLine();
+                        System.out.print("\nConfirm Password: ");
+                        Cpassword = input.nextLine();
+                        System.out.print("\nDate Of Birth: ");
+                        DateOfBirth = input.nextLine();
+                    }
+                    User newUser = new User(firstName, lastName, email, userName, password, Cpassword, DateOfBirth);
 
-            Date currentDate = new Date();
-            System.out.println(currentDate);
+                    client.addNewUserToServer(newUser); //send to server
+
+                    System.out.println("Welcome " + newUser.getUserName() + " you are signed in!");
+
+                    Date currentDate = new Date();
+                    System.out.println(currentDate);
 
 
-        }catch(Exception e)
-        {
-            System.out.println("Unable to establish a connection to the server.");
+                }catch(Exception e)
+                {
+                    System.out.println("Unable to establish a connection to the server.");
+                }
+
+                break;
         }
-
-
-
-
-
     }
+
+
+
+
+
+
+
     public static boolean validatePassword (String password, String Cpassword)
     {
         Pattern hasUpperCase = Pattern.compile("[A-Z]");
