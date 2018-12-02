@@ -13,4 +13,4 @@ if __name__ == '__main__':
 
     server.add_user("user", "John", "Doe", "email@email.com", "PASS")
 
-    print(json.dumps(Post("user", "This is a test post!").__dict__))
+    print(server.user_json())

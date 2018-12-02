@@ -1,29 +1,12 @@
 # Sumner Bradley
-import datetime
 from src.comment import Comment
 
 
 class Post(Comment):
     _ID = 0
 
-    def __init__(self):
-        self.id = self._ID
-        self._ID += 1
-        self.text = ""
-        self.date = datetime.date
-        self.time = datetime.time
-        self.username = ""
-
-        self.comments = []
-        self.likes = []
-
     def __init__(self, username, text):
-        self.id = self._ID
-        self._ID += 1
-        self.text = text
-        self.date = datetime.date
-        self.time = datetime.time
-        self.username = username
+        super().__init__(username, text)
 
         self.comments = []
         self.likes = []
@@ -35,4 +18,29 @@ class Post(Comment):
     def remove_comment(self, comment):
         self.comments.remove(comment)
 
-    def to_json
+    def to_json(self):
+        parse = ('{',
+                '"id":' + '"' + str(self.id) + '",',
+                '"text":' + '"' + self.text + '",',
+                '"date":' + '"' + self.date + '",',
+                '"time":' + '"' + self.time + '",',
+                '"username":' + '"' + self.username + '",',
+                '"comments":[')
+
+        # Add each comment to the json array
+        for comment in self.comments:
+            parse += comment.to_json() + ','
+        parse = parse[0: len(parse) - 2]
+
+        parse += ('],',
+                '"likes":[')
+
+        # Add each like to the json array
+        for like in self.likes:
+            parse += like.to_json() + ','
+        parse = parse[0: len(parse) - 2]
+
+        parse += (']',
+                '}')
+
+        return parse

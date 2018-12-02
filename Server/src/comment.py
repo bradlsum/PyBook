@@ -6,16 +6,6 @@ from src.like import Like
 class Comment:
     _ID = 0
 
-    def __init__(self):
-        self.id = self._ID
-        self._ID += 1
-        self.text = ""
-        self.date = datetime.date
-        self.time = datetime.time
-        self.username = ""
-
-        self.likes = []
-
     def __init__(self, username, text):
         self.id = self._ID
         self._ID += 1
@@ -41,3 +31,12 @@ class Comment:
         for like in self.likes:
             if like.username == username:
                 self.likes.remove(like)
+
+    def to_json(self):
+        return ('{',
+                '"id":' + '"' + str(self.id) + '",',
+                '"text":' + '"' + self.text + '",',
+                '"date":' + '"' + self.date + '",',
+                '"time":' + '"' + self.time + '",',
+                '"username":' + '"' + self.username + '"',
+                '}')

@@ -43,3 +43,7 @@ class User:
 
     def set_password(self, password):
         self.password = password
+
+    def to_json(self):
+        return ('{"id":"' + str(self.id) + '","first":"' + self.first_name + '","last":"' + self.last_name + '","email":"' + self.email + '","username":"' + self.username + '""password":"' + self.password + '"}')
+
