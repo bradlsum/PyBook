@@ -4,11 +4,11 @@ from src.like import Like
 
 
 class Comment:
-    id = 0
+    _ID = 0
 
     def __init__(self):
-        self.id = id
-        id += 1
+        self.id = self._ID
+        self._ID += 1
         self.text = ""
         self.date = datetime.date
         self.time = datetime.time
@@ -17,8 +17,8 @@ class Comment:
         self.likes = []
 
     def __init__(self, username, text):
-        self.id = id
-        id += 1
+        self.id = self._ID
+        self._ID += 1
         self.text = text
         self.date = datetime.date
         self.time = datetime.time

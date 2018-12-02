@@ -1,10 +1,10 @@
 # Sumner Bradley
 class User:
-    id = 0
+    _ID = 0
 
     def __init__(self):
-        self.id = id
-        id += 1
+        self.id = self._ID
+        self._ID += 1
         self.first_name = ""
         self.last_name = ""
         self.email = ""
@@ -12,8 +12,8 @@ class User:
         self.password = ""
 
     def __init__(self, first, last, email, username, password):
-        self.id = id
-        id += 1
+        self.id = self._ID
+        self._ID += 1
         self.first_name = first
         self.last_name = last
         self.email = email
