@@ -19,28 +19,24 @@ class Post(Comment):
         self.comments.remove(comment)
 
     def to_json(self):
-        parse = ('{',
-                '"id":' + '"' + str(self.id) + '",',
-                '"text":' + '"' + self.text + '",',
-                '"date":' + '"' + self.date + '",',
-                '"time":' + '"' + self.time + '",',
-                '"username":' + '"' + self.username + '",',
-                '"comments":[')
+        parse = '{"id":"' + str(self.id) + '","text":' + '"' + self.text + '",'
+        parse += '"date":' + '"' + str(self.date) + '","time":"' + str(self.time) + '",'
+        parse += '"username":' + '"' + self.username + '","comments":['
 
         # Add each comment to the json array
         for comment in self.comments:
             parse += comment.to_json() + ','
-        parse = parse[0: len(parse) - 2]
+        if parse[len(parse)-1] == ',':
+            parse = parse[0: len(parse) - 1]
 
-        parse += ('],',
-                '"likes":[')
+        parse += '],"likes":['
 
         # Add each like to the json array
         for like in self.likes:
             parse += like.to_json() + ','
-        parse = parse[0: len(parse) - 2]
+        if parse[len(parse)-1] == ',':
+            parse = parse[0: len(parse) - 1]
 
-        parse += (']',
-                '}')
+        parse += ']}}'
 
         return parse
