@@ -25,30 +25,26 @@ class Server:
                 self.posts.remove(post)
 
     def user_json(self):
-        parse = ('{',
-                 '"users":[')
+        parse = '{"users":['
 
         # Add each comment to the json array
         for user in self.users:
             parse += user.to_json()
-            #parse += ','
-        parse = parse[0: len(parse) - 2]
+            parse += ','
+        parse = parse[0: len(parse) - 1]
 
-        parse += (']',
-                  '}')
+        parse += ']}'
 
         return parse
 
     def post_json(self):
-        parse = ('{',
-                '"posts":[')
+        parse = '{"posts":['
 
         # Add each comment to the json array
         for post in self.posts:
             parse += post.to_json() + ','
         parse = parse[0: len(parse) - 2]
 
-        parse += (']',
-                '}')
+        parse += ']}'
 
         return parse

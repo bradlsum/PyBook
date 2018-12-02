@@ -45,5 +45,9 @@ class User:
         self.password = password
 
     def to_json(self):
-        return ('{"id":"' + str(self.id) + '","first":"' + self.first_name + '","last":"' + self.last_name + '","email":"' + self.email + '","username":"' + self.username + '""password":"' + self.password + '"}')
+        temp = '{"id":"' + str(self.id) + '","first":"' + self.first_name + '",'
+        temp += '"last":"' + self.last_name + '","email":"' + self.email + '",'
+        temp += '"username":"' + self.username + '","password":"' + self.password + '"}'
+
+        return(temp)
 

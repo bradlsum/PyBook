@@ -12,3 +12,23 @@
   "password": "pass"
 }
 ```
+**Example post JSON**
+```
+{
+  "posts":[
+    {"id":"0",
+    "text":"This is a test",
+    "date":"<class 'datetime.date'>",
+    "time":"<class'datetime.time'>",
+    "username":"user","comments":[],
+    "likes":[]},
+    {"id":"1",
+    "text":"This is also a test",
+    "date":"<class 'datetime.date'>",
+    "time":"<class'datetime.time'>",
+    "username":"user",
+    "comments":[],
+    "likes":[]}
+    ]
+}
+```
