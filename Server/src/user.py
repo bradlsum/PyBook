@@ -1,5 +1,5 @@
 # Sumner Bradley
-class User:
+class User:  # User object which is used by the server object to store user information
     _ID = 0
 
     def __init__(self):
@@ -49,5 +49,4 @@ class User:
         temp += '"last":"' + self.last_name + '","email":"' + self.email + '",'
         temp += '"username":"' + self.username + '","password":"' + self.password + '"}'
 
-        return(temp)
-
+        return temp

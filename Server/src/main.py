@@ -81,6 +81,7 @@ if __name__ == '__main__':
         pkl_in = open('./data.pickle', 'rb')
         server = pickle.load(pkl_in)
         pkl_in.close()
+        
     elif choice == '2':
         server.add_user("user", "John", "Doe", "email@email.com", "PASS")
         server.add_user("Billybob", "Bill", "Bob", "email@email.com", "PASS")

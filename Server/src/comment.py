@@ -3,7 +3,7 @@ import datetime
 from src.like import Like
 
 
-class Comment:
+class Comment:  # Comment object that is extended by the Post object. This object also is used by the post object
     _ID = 0
 
     def __init__(self, username, text):
@@ -33,10 +33,8 @@ class Comment:
                 self.likes.remove(like)
 
     def to_json(self):
-        return ('{',
-                '"id":' + '"' + str(self.id) + '",',
-                '"text":' + '"' + self.text + '",',
-                '"date":' + '"' + self.date + '",',
-                '"time":' + '"' + self.time + '",',
-                '"username":' + '"' + self.username + '"',
-                '}')
+        temp = '{"id":"' + str(self.id) + '","text":"' + self.text + '",'
+        temp += '"date":"' + self.date + '","time":"' + self.time + '",'
+        temp += '"username":"' + self.username + '"}'
+
+        return temp

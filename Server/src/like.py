@@ -2,15 +2,14 @@
 import datetime
 
 
-class Like:
+class Like:  # Like object which is used by the Post object
     def __init__(self, username):
         self.username = username
         self.date = datetime.date
         self.time = datetime.time
 
     def to_json(self):
-        return ('{',
-                '"date":' + '"' + self.date + '",',
-                '"time":' + '"' + self.time + '",',
-                '"username":' + '"' + self.username + '"',
-                '}')
+        temp = '{"date":"' + self.date + '","time":"' + self.time + '",'
+        temp += '"username":"' + self.username + '"}'
+
+        return temp
