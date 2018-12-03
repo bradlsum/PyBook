@@ -7,9 +7,73 @@ from src.server import Server
 HOST = '127.0.0.1'
 PORT = 65432
 
+
+def action(sever, message):
+    # Convert message to JSON
+    if message != "":
+        json_m = json.loads(message)
+    else:
+        print("Message not found")
+        return
+
+    if json_m['action'] == "getUsers":
+        message = server.user_json()
+        # TODO Send message to client
+        server.save()
+        print("Sending user JSON")
+
+    elif json_m['action'] == "getPosts":
+        message = server.post_json()
+        # TODO Send message to client
+        server.save()
+        print("Sending post JSON")
+
+    elif json_m['action'] == "addUser":
+        # Add to server
+        server.add_user(json_m['first_name'], json_m['last_name'],
+                        json_m['email'], json_m['username'], json_m['password'])
+        server.save()
+        print("Adding user", json_m['username'])
+
+    elif json_m['action'] == "removeUser":
+        # Remove from server
+        server.remove_user(json_m['username'])
+        server.save()
+
+    elif json_m['action'] == "addPost":
+        # Add post to server
+        server.add_post(json_m['username'], json_m['text'])
+        server.save()
+
+    elif json_m['action'] == "addComment":
+        server.add_comment(json_m['pid'], json_m['username'], json_m['text'])
+        server.save()
+
+    elif json_m['action'] == "removeComment":
+        server.remove_comment(json_m['pid'], json_m['username'])
+        server.save()
+
+    elif json_m['action'] == "addLike":
+        server.add_like(json_m['pid'], json_m['username'])
+        server.save()
+
+    elif json_m['action'] == "removeLike":
+        server.remove_like(json_m['pid'], json_m['username'])
+        server.save()
+
+    elif json_m['action'] == "auth":
+        check = server.auth(json_m['username'], json_m['password'])
+        # TODO Send check back to client
+        server.save()
+
+    elif json_m['action'] == "exit":
+        return
+
+
 if __name__ == '__main__':
     server = Server()
-    message = ""
+    message = '{"action":"addUser","id": 0,"_ID": 1,"first_name": "John",'
+    message += '"last_name": "Doe","email": "email@place.com","username": "user","password": "pass"}'
 
     choice = input("Enter 1 for pickled file or 2 for demo input:")
     if choice == '1':
@@ -30,79 +94,6 @@ if __name__ == '__main__':
     print(server.post_json())
 
     while True:
-        if message == "getUsers":
-            message = server.user_json()
-            # Send message to client
-            # TODO
-            server.save()
-
-        elif message == "getPosts":
-            message = server.post_json()
-            # Send message to client
-            # TODO
-            server.save()
-
-        elif message == "addUser":
-            # Get next message from client
-            # TODO
-            json_m = json.load(message)
-            # Add to server
-            server.add_user(json_m['first_name'], json_m['last_name'],
-                            json_m['email'], json_m['username'], json_m['password'])
-            server.save()
-
-        elif message == "removeUser":
-            # Get next message from client
-            # TODO
-            json_m = json.load(message)
-            # Remove from server
-            server.remove_user(json_m['username'])
-            server.save()
-
-        elif message == "addPost":
-            # Get next message from client
-            # TODO
-            json_m = json.load(message)
-            # Add post to server
-            server.add_post(json_m['username'], json_m['text'])
-            server.save()
-
-        elif message == "addComment":
-            # Get next message from client
-            # TODO
-            json_m = json.load(message)
-            server.add_comment(json_m['pid'], json_m['username'], json_m['text'])
-            server.save()
-
-        elif message == "removeComment":
-            # Get next message from client
-            # TODO
-            json_m = json.load(message)
-            server.remove_comment(json_m['pid'], json_m['username'])
-            server.save()
-
-        elif message == "addLike":
-            # Get next message from client
-            # TODO
-            json_m = json.load(message)
-            server.add_like(json_m['pid'], json_m['username'])
-            server.save()
-
-        elif message == "removeLike":
-            # Get next message from client
-            # TODO
-            json_m = json.load(message)
-            server.remove_like(json_m['pid'], json_m['username'])
-            server.save()
-
-        elif message == "auth":
-            # Get next message from client
-            # TODO
-            json_m = json.load(message)
-            check = server.auth(json_m['username'], json_m['password'])
-            # Send check back to client
-            # TODO
-            server.save()
-
-        break
-
+        # TODO authentication
+        # TODO if user signs in make a new thread and start action
+        action(server, message)
