@@ -81,20 +81,29 @@ if __name__ == '__main__':
         pkl_in = open('./data.pickle', 'rb')
         server = pickle.load(pkl_in)
         pkl_in.close()
-        
+
     elif choice == '2':
         server.add_user("user", "John", "Doe", "email@email.com", "PASS")
         server.add_user("Billybob", "Bill", "Bob", "email@email.com", "PASS")
+        server.add_user("Guy", "Jane", "Smith", "email@email.com", "PASS")
 
         server.add_post("user", "This is a test")
-        server.add_post("user", "This is also a test")
+        server.add_post("Guy", "This is also a test")
+
+        server.add_comment(0, "Guy", "Really cool!")
+        server.add_comment(0, "Billybob", "wow!")
+
+        server.add_like(1, "Guy")
+        server.add_like(1, "user")
+
+        print(server.user_json())
+        print(server.post_json())
 
         server.save()
-
-    print(server.user_json())
-    print(server.post_json())
 
     while True:
         # TODO authentication
         # TODO if user signs in make a new thread and start action
         action(server, message)
+
+        break

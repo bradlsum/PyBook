@@ -35,10 +35,11 @@ class Post(Comment):  # Post object which is used by the Server object to store 
 
         # Add each like to the json array
         for like in self.likes:
-            parse += like.to_json() + ','
+            parse += like.to_json()
+            parse += ','
         if parse[len(parse)-1] == ',':
             parse = parse[0: len(parse) - 1]
 
-        parse += ']}}'
+        parse += ']}'
 
         return parse

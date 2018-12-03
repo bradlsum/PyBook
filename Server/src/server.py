@@ -74,10 +74,11 @@ class Server:
 
         # Add each comment to the json array
         for post in self.posts:
-            parse += post.to_json() + ','
+            parse += post.to_json()
+            parse += ','
         parse = parse[0: len(parse) - 2]
 
-        parse += ']}'
+        parse += '}]}'
 
         return parse
 

@@ -2,18 +2,9 @@
 class User:  # User object which is used by the server object to store user information
     _ID = 0
 
-    def __init__(self):
-        self.id = self._ID
-        self._ID += 1
-        self.first_name = ""
-        self.last_name = ""
-        self.email = ""
-        self.username = ""
-        self.password = ""
-
     def __init__(self, first, last, email, username, password):
-        self.id = self._ID
-        self._ID += 1
+        self.id = User._ID
+        User._ID += 1
         self.first_name = first
         self.last_name = last
         self.email = email

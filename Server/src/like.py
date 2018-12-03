@@ -9,7 +9,7 @@ class Like:  # Like object which is used by the Post object
         self.time = datetime.time
 
     def to_json(self):
-        temp = '{"date":"' + self.date + '","time":"' + self.time + '",'
+        temp = '{"date":"' + str(self.date) + '","time":"' + str(self.time) + '",'
         temp += '"username":"' + self.username + '"}'
 
         return temp

@@ -7,8 +7,8 @@ class Comment:  # Comment object that is extended by the Post object. This objec
     _ID = 0
 
     def __init__(self, username, text):
-        self.id = self._ID
-        self._ID += 1
+        self.id = Comment._ID
+        Comment._ID += 1
         self.text = text
         self.date = datetime.date
         self.time = datetime.time
@@ -34,7 +34,7 @@ class Comment:  # Comment object that is extended by the Post object. This objec
 
     def to_json(self):
         temp = '{"id":"' + str(self.id) + '","text":"' + self.text + '",'
-        temp += '"date":"' + self.date + '","time":"' + self.time + '",'
+        temp += '"date":"' + str(self.date) + '","time":"' + str(self.time) + '",'
         temp += '"username":"' + self.username + '"}'
 
         return temp
