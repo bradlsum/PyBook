@@ -11,7 +11,7 @@
 ## UML Design
 <img src="ProjectDesign.png"></img><br>
 **Example user JSON**
-```
+```json
 {
   "id": 0,
   "_ID": 1,
@@ -23,7 +23,7 @@
 }
 ```
 **Example post JSON**
-```
+```json
 {
   "posts":[
     {"id":"0",
