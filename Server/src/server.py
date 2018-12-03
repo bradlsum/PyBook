@@ -1,4 +1,5 @@
 # Sumner Bradley
+import pickle
 from src.user import User
 from src.post import Post
 
@@ -79,3 +80,8 @@ class Server:
         parse += ']}'
 
         return parse
+
+    def save(self):
+        pkl_out = open('./data.pickle', 'wb')
+        pickle.dump(self, pkl_out)
+        pkl_out.close()
