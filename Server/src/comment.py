@@ -10,8 +10,9 @@ class Comment:  # Comment object that is extended by the Post object. This objec
         self.id = Comment._ID
         Comment._ID += 1
         self.text = text
-        self.date = datetime.date
-        self.time = datetime.time
+        self.date = datetime.date.today()
+        self.time = str(datetime.datetime.now())[str(datetime.datetime.now()).find(" "):
+                                                 str(datetime.datetime.now()).find(".")]
         self.username = username
 
         self.likes = []

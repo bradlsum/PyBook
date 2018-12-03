@@ -9,7 +9,7 @@ class Server:
         self.users = []
         self.posts = []
 
-    def auth(self, username, password):
+    def auth(self, username, password):  # Check if username and password are in the server
         for user in self.users:
             if user.username == username and password == user.password:
                 return "Match"

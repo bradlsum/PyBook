@@ -75,14 +75,15 @@ if __name__ == '__main__':
     message = '{"action":"addUser","id": 0,"_ID": 1,"first_name": "John",'
     message += '"last_name": "Doe","email": "email@place.com","username": "user","password": "pass"}'
 
+    # Select pickle or sample
     choice = input("Enter 1 for pickled file or 2 for demo input:")
-    if choice == '1':
-        # Open serialized file
+
+    if choice == '1':   # Open serialized file
         pkl_in = open('./data.pickle', 'rb')
         server = pickle.load(pkl_in)
         pkl_in.close()
 
-    elif choice == '2':
+    elif choice == '2':  # Sample users and posts
         server.add_user("user", "John", "Doe", "email@email.com", "PASS")
         server.add_user("Billybob", "Bill", "Bob", "email@email.com", "PASS")
         server.add_user("Guy", "Jane", "Smith", "email@email.com", "PASS")
