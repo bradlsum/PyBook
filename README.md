@@ -9,4 +9,36 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The relationship between the Python server and Java client will be established by a protocol to be chosen at a later date. The connection, data requests, and posts will be initiated through the Java client and fulfilled by the Python server. This application will be designed for Windows and Mac desktop environments due to Java’s high portability.\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This project is being developed for educational purposes during the fall 2018 semester in the course Advanced Programming with Java and Python taught by Javier Pastorino at the University of Colorado Denver.
 ## UML Design
-<img src="ProjectDesign.png">
+<img src="ProjectDesign.png"></img><br>
+**Example user JSON**
+```
+{
+  "id": 0,
+  "_ID": 1,
+  "first_name": "John",
+  "last_name": "Doe",
+  "email": "email@place.com",
+  "username": "user",
+  "password": "pass"
+}
+```
+**Example post JSON**
+```
+{
+  "posts":[
+    {"id":"0",
+    "text":"This is a test",
+    "date":"<class 'datetime.date'>",
+    "time":"<class'datetime.time'>",
+    "username":"user","comments":[],
+    "likes":[]},
+    {"id":"1",
+    "text":"This is also a test",
+    "date":"<class 'datetime.date'>",
+    "time":"<class'datetime.time'>",
+    "username":"user",
+    "comments":[],
+    "likes":[]}
+    ]
+}
+```
