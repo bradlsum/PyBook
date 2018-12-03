@@ -23,6 +23,22 @@ public class Client {
         //the new user is passed to the function and will be output to the server in a json string.
         //server will store new user
 
+        this.sendJSON(newUser.toJSON());
+
+    }
+
+
+    private void sendJSON(String JSON){
+
+        try{
+
+            this.output.writeUTF(JSON);
+            this.output.flush();
+        }
+
+        catch(Exception e){
+            e.printStackTrace();}
+
     }
 
     public User logIn(String username, String password){
@@ -55,7 +71,7 @@ public class Client {
 
 //    public void deletePost(Post thePost){
 //        thePost will be deleted from the server
-            //client will output a json string to the server with the post to be deleted
+    //client will output a json string to the server with the post to be deleted
 //    }
 
     //if there are more functions to be implemented please tell me.
@@ -102,3 +118,4 @@ public class Client {
 
 
 }
+w

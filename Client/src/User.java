@@ -6,6 +6,10 @@ public class User {
     private String userName;
     private String email;
     private String DateOfBirth;
+    private int id;
+
+
+    static int _ID = 0;
 
     public User()
     {
@@ -16,13 +20,21 @@ public class User {
         userName = "";
         email = "";
         DateOfBirth = "";
+        id = ++this._ID;
+
     }
 
     public User(String firstName, String lastName, String email, String userName, String password, String Cpassword, String DateOfBirth)
     {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.userName = userName;
+        this.password = password;
+        this.Cpassword = Cpassword;
+        this.DateOfBirth = DateOfBirth;
 
     }
-
 
     public void setFirstName(String iFirstName)
     {
@@ -81,5 +93,14 @@ public class User {
         return DateOfBirth;
     }
 
+
+
+    public String  toJSON(){
+        String temp = "{\"id\":" + this.id + ",\"first\":" + this.firstName + ",";
+        temp += "\"last\":" + this.lastName + ",\"email\"" + this.email + ",";
+        temp += "\"username\":" + this.userName + ",\"password\":" + this.password + "}";
+
+        return temp;
+    }
 
 }
