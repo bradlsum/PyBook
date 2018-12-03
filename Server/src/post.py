@@ -12,11 +12,13 @@ class Post(Comment):
         self.likes = []
 
     # Add and remove comments from a post
-    def add_comment(self, username, comment):
-        self.comments.append(Post(username, comment))
+    def add_comment(self, username, text):
+        self.comments.append(Comment(username, text))
 
-    def remove_comment(self, comment):
-        self.comments.remove(comment)
+    def remove_comment(self, id):
+        for comment in self.comments:
+            if comment.id == id:
+                self.comments.remove(comment)
 
     def to_json(self):
         parse = '{"id":"' + str(self.id) + '","text":' + '"' + self.text + '",'
