@@ -17,12 +17,67 @@
 ```json
 {
   "action":"addUser",
-  "id": 0,
-  "_ID": 1,
-  "first_name": "John",
-  "last_name": "Doe",
+  "id":0,
+  "first_name":"John",
+  "last_name":"Doe",
   "email": "email@place.com",
-  "username": "user",
-  "password": "pass"
+  "username":"user",
+  "password":"pass"
+}
+```
+**Example remove user JSON message**
+```json
+{
+  "action":"removeUser",
+  "username":"user"
+}
+```
+**Example add post JSON message**
+```json
+{
+  "action":"addPost",
+  "username":"user",
+  "text":"Test post for PyBook"
+}
+```
+**Example remove post JSON message**
+```json
+{
+  "action":"removePost",
+  "username":"user",
+  "pid":"3"
+}
+```
+**Example add comment JSON message**
+```json
+{
+  "action":"addComment",
+  "pid":"2",
+  "username":"user",
+  "text": "Test comment for PyBook"
+}
+```
+**Example remove comment JSON message**
+```json
+{
+  "action":"removeComment",
+  "cid":"0",
+  "pid":"3"
+}
+```
+**Example add like JSON message**
+```json
+{
+  "action":"addLike",
+  "pid":"2",
+  "username":"user"
+}
+```
+**Example remove like JSON message**
+```json
+{
+  "action":"removeLike",
+  "pid":"3",
+  "username":"user"
 }
 ```
