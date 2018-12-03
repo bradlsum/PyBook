@@ -11,7 +11,7 @@ public class Signup {
     ArrayList<User> userInfo = new ArrayList<User>();
 
     public static void main(String [] args) throws FileNotFoundException {
-        int PORT;
+        int PORT = 65432;
         BufferedReader fromServer;
         PrintStream SendServer;
         Socket client = null;
@@ -36,8 +36,6 @@ public class Signup {
                 String password = input.nextLine();
                 //if(userName.equals(serverUsername) && password.equals(serverPassword)) {
                     try {
-                        System.out.println("Enter the port number to connect to server.");
-                        PORT = serverInput.nextInt();
                         client = new Socket("127.0.0.1", PORT);
                         System.out.println("Connection established.");
 
@@ -114,8 +112,6 @@ public class Signup {
             }
             case 2: {
                 try {
-                    System.out.println("Enter the port number to connect to server.");
-                    PORT = serverInput.nextInt();
                     client = new Socket("127.0.0.1", PORT);
                     System.out.println("Connection established.");
                     //Scanner input = new Scanner(System.in);
