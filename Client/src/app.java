@@ -54,7 +54,7 @@ public class app {
             }
             case 2: {
                 try {
-//                    client = new Socket("127.0.0.1", PORT);
+                    client = new Socket("127.0.0.1", PORT);
                     System.out.println("Connection established.");
                     Scanner sc = new Scanner(System.in);
 
@@ -70,6 +70,7 @@ public class app {
                     String pass = sc.nextLine();
                     send(client, addUser(first, last, email, username, pass));
                     System.out.println(recieve(client));
+                    client.close();
 
                     System.out.println("Welcome " + username + " you are now signed in!");
                     menu(client, username);
@@ -104,18 +105,13 @@ public class app {
                 sc.nextLine();
 
                 if (choice == 1) {
-                    System.out.print("Enter your name:");
-                    String first = sc.nextLine();
-                    System.out.print("Enter your last name:");
-                    String last = sc.nextLine();
-                    System.out.print("Enter your email:");
-                    String email = sc.nextLine();
-                    System.out.print("Enter your username:");
-                    String username = sc.nextLine();
-                    System.out.print("Enter your password:");
-                    String pass = sc.nextLine();
-                    send(client, addUser(first, last, email, username, pass));
+                    send(client, getPosts);
                     System.out.println(recieve(client));
+
+                    System.out.print("Enter your post:");
+                    String text = sc.nextLine();
+
+                    send(client, addPost(client, userName, text));
 
                 } else if (choice == 2) {
                     send(client, getPosts);
@@ -129,9 +125,6 @@ public class app {
                     comment = sc.nextLine();
 
                     send(client, addComment(client, id, userName, comment));
-                    comment = sc.nextLine();
-
-                    System.out.println(recieve(client));
 
                 } // else if (choice == 3) {
 //                                int CommentPost;
@@ -175,14 +168,14 @@ public class app {
         OutputStreamWriter temp = new OutputStreamWriter(client.getOutputStream(), "UTF-8");
         temp.append(req);
         temp.flush();
-        temp.close();
+        //temp.close();
         System.out.println("Output flushed...");
     }
 
     public static String recieve(Socket client) throws  IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream(), "UTF-8"));
         String res = in.readLine();
-        in.close();
+        //in.close();
         return res;
     }
 
@@ -201,6 +194,14 @@ public class app {
         return ("{" +
                 "  \"action\":\"addComment\"," +
                 "  \"pid\":\"" + id + "\"," +
+                "  \"username\":\"" + username + "\"," +
+                "  \"text\": \"" + text + "\"" +
+                "}");
+    }
+
+    public static String addPost(Socket client, String username, String text){
+        return ("{" +
+                "  \"action\":\"addPost\"," +
                 "  \"username\":\"" + username + "\"," +
                 "  \"text\": \"" + text + "\"" +
                 "}");
