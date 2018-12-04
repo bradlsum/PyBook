@@ -13,6 +13,18 @@
 > * auth
 > * exit
 ## Making a request to the server can be done by setting the action inside of the JSON passed to the server
+**Example get posts JSON message**
+```json
+{
+  "action":"getPosts"
+}
+```
+**Example get users JSON message**
+```json
+{
+  "action":"getUsers"
+}
+```
 **Example add user JSON message**
 ```json
 {
