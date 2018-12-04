@@ -47,7 +47,7 @@ public class Post {
 
     public String toJSON(){
         String temp = "{\"id\":" + this.id + ",\"text\":" + this.postText + ",";
-        temp += "\"date\":" + this.date.toString() + "\"time\":" + this.time + ",";
+        temp += "\"date\":" + this.date + "\"time\":" + this.time + ",";
         temp += "\"username\":" + this.userName + ",\"comments\":[";
 
         for (Comment comment:this.comments){
@@ -72,6 +72,7 @@ public class Post {
         temp += "]}";
 
         return temp;
+
     }
 
     public Post parseJSON(String JSON){ //given a json string, return a new user with those parameters
