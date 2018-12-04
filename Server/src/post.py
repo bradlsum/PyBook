@@ -1,4 +1,5 @@
 # Sumner Bradley
+import datetime
 from src.comment import Comment
 
 
@@ -6,8 +7,13 @@ class Post(Comment):  # Post object which is used by the Server object to store 
     _ID = 0
 
     def __init__(self, username, text):
-        super().__init__(username, text)
-        self._ID += 1
+        self.id = Post._ID
+        Post._ID += 1
+        self.text = text
+        self.date = datetime.date.today()
+        self.time = str(datetime.datetime.now())[str(datetime.datetime.now()).find(" "):
+                                                 str(datetime.datetime.now()).find(".")]
+        self.username = username
         self.comments = []
         self.likes = []
 
