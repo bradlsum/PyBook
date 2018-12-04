@@ -15,8 +15,6 @@ class Comment:  # Comment object that is extended by the Post object. This objec
                                                  str(datetime.datetime.now()).find(".")]
         self.username = username
 
-        self.likes = []
-
     # Getters and setters
     def get_text(self):
         return self.text
