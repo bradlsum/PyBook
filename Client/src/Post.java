@@ -37,22 +37,22 @@ public class Post {
         temp += "\"username\":" + this.userName + ",\"comments\":[";
 
         for (Comment comment:this.comments){
-            temp += comment.toJSON(); + ",";
+            temp += comment.toJSON() + ",";
         }
 
         if (temp.charAt(temp.length() - 1) == ','){
-            temp = temp.substring(0,temp.length()-1) //remove comma
+            temp = temp.substring(0,temp.length()-1); //remove comma
         }
 
-        temp += "],\"likes\":["
+        temp += "],\"likes\":[";
 
         for (Like like:this.likes){
             temp += like.toJSON();
-            temp += ","
+            temp += ",";
         }
 
         if (temp.charAt(temp.length() - 1) == ','){
-            temp = temp.substring(0,temp.length()-1) //remove comma
+            temp = temp.substring(0,temp.length()-1); //remove comma
         }
 
         temp += "]}";

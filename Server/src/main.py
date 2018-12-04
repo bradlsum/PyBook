@@ -50,7 +50,7 @@ def action(sever, message):
         server.save()
 
     elif json_m['action'] == "removeComment":
-        server.remove_comment(json_m['pid'], json_m['username'])
+        server.remove_comment(json_m['pid'], json_m['cid'])
         server.save()
 
     elif json_m['action'] == "addLike":
@@ -94,8 +94,12 @@ if __name__ == '__main__':
         server.add_comment(0, "Guy", "Really cool!")
         server.add_comment(0, "Billybob", "wow!")
 
+        server.remove_comment(0, 2)
+
         server.add_like(1, "Guy")
         server.add_like(1, "user")
+
+        server.remove_like(1, "Guy")
 
         print(server.user_json())
         print(server.post_json())
