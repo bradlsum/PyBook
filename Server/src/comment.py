@@ -22,15 +22,6 @@ class Comment:  # Comment object that is extended by the Post object. This objec
     def set_text(self, text):
         self.text = text
 
-    # Add and remove like from a post
-    def add_like(self, username):
-        self.likes.append(Like(username))
-
-    def remove_like(self, username):
-        for like in self.likes:
-            if like.username == username:
-                self.likes.remove(like)
-
     def to_json(self):
         temp = '{"id":"' + str(self.id) + '","text":"' + self.text + '",'
         temp += '"date":"' + str(self.date) + '","time":"' + str(self.time) + '",'

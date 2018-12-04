@@ -1,5 +1,6 @@
 # Sumner Bradley
 import datetime
+from src.like import Like
 from src.comment import Comment
 
 
@@ -18,6 +19,15 @@ class Post(Comment):  # Post object which is used by the Server object to store 
         for comment in self.comments:
             if comment.id == id:
                 self.comments.remove(comment)
+
+    # Add and remove like from a post
+    def add_like(self, username):
+        self.likes.append(Like(username))
+
+    def remove_like(self, username):
+        for like in self.likes:
+            if like.username == username:
+                self.likes.remove(like)
 
     def to_json(self):
         parse = '{"id":"' + str(self.id) + '","text":' + '"' + self.text + '",'
