@@ -13,7 +13,8 @@ public class App {
     ArrayList<User> userInfo = new ArrayList<User>();
 
     public static void main(String [] args){
-        int PORT = 9998;
+
+        int PORT = 65432;
         Client client = new Client(PORT); //streams and connections are setup in client constructor, need to terminate connections using client.terminateConnections()
 
         Scanner input = new Scanner(System.in);
@@ -39,6 +40,7 @@ public class App {
                     String password = input.next();
 
                     User theUser = client.logIn(username,password); //the user should have the correct credentials
+                    client.printTimeline();
 
                     break;
 
@@ -86,12 +88,12 @@ public class App {
                         }
                         User newUser = new User(firstName, lastName, email, userName, password,0);
 
-//                    client.addNewUserToServer(newUser); //send to server
+                        client.addNewUserToServer(newUser); //send to server
 
                         System.out.println("Welcome " + newUser.getUserName() + " you are signed in!");
 
-                        Date currentDate = new Date();
-                        System.out.println(currentDate);
+                        client.printTimeline();
+
 
 
                     }catch(Exception e)

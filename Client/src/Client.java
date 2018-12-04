@@ -1,8 +1,15 @@
 //Abyel Romero
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.*;
 import java.lang.reflect.Array;
 import java.net.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Client {
@@ -11,6 +18,7 @@ public class Client {
     private DataInputStream input;
     private Socket connection;
     private int port;
+    private ArrayList<Post> thePosts;
 
     public Client(int port){
         this.port = port;
@@ -31,7 +39,6 @@ public class Client {
     private void sendJSON(String JSON){
 
         try{
-
             this.output.writeUTF(JSON);
             this.output.flush();
         }
@@ -47,7 +54,7 @@ public class Client {
         // client will output a json string with username and password.
         //server will provide a json string if given username and password are correct.
 
-        String getUsernameJSON = "{\"action\":" + "getUser" + ",\"username\":" + username + ",";
+        String getUsernameJSON = "{\"action\":" + "\"auth\"" + ",\"username\":" + username + ",";
         getUsernameJSON += "\"password\":" + password + "}";
 
         this.sendJSON(getUsernameJSON);
@@ -57,7 +64,7 @@ public class Client {
         return user;
     }
 
-    public User recieveUser(){
+    private User recieveUser(){
         User theUser = new User();
 
         try{
@@ -71,31 +78,53 @@ public class Client {
         return theUser;
     }
 
+    private void receivePosts(){
 
-    public ArrayList requestPosts(){
-        //this function will return an array will all posts contained in server
-        //in main menu, if user correctly signs in, a timeline will be created from the app
-        //the app will call this function that requests the timeline data from the server (posts)
-        //the server will provide all the posts in the posts array (in json) with their associated likes
-        //the app will print the posts (the comments and likes)
-        //at the top of the timeline, there will be options to create a new post or edit a post so that other users can see them
-        //in each post there is an option to like the post
+        try {
+            String JSONString = this.input.readUTF();
 
-        return  new ArrayList();
+            JSONObject obj = new JSONObject(JSONString); //make json object, passing json string
+
+            JSONArray jsonArray = obj.getJSONArray("posts");
+
+            for(int k = 0; k < jsonArray.length(); k++){
+                JSONObject temp2 = jsonArray.getJSONObject(k);
+
+                String postText = temp2.getString("text");
+                String date = temp2.getString("date");
+                String id = temp2.getString("id");
+
+                Post newPost = new Post(postText,date,Integer.parseInt(id));
+                this.thePosts.add(newPost);
+            }
+
+
+        }
+        catch (JSONException jex){
+            System.out.println("JSON is not correct");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-//    public void addPost(Post newPost){
-//       will add a new post to the server
-    //the function passes a json string with the post to be added
+    public void printTimeline(){
 
-//    }
+        this.requestPosts();
+        this.receivePosts();
 
-//    public void deletePost(Post thePost){
-//        thePost will be deleted from the server
-    //client will output a json string to the server with the post to be deleted
-//    }
+        for (int i = 0; i < this.thePosts.size(); i++){
+            System.out.println(thePosts.get(i).getPostText());
+            System.out.println(thePosts.get(i).getDate());
+        }
 
-    //if there are more functions to be implemented please tell me.
+    }
+
+
+    public void requestPosts(){
+        String JSON = "{\"action\":" + "\"getPosts\"}";
+        this.sendJSON(JSON);
+    }
+
 
 
     private void run(){
