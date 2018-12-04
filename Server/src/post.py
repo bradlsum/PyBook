@@ -1,10 +1,9 @@
 # Sumner Bradley
+import datetime
 from src.comment import Comment
 
 
 class Post(Comment):  # Post object which is used by the Server object to store user posts
-    _ID = 0
-
     def __init__(self, username, text):
         super().__init__(username, text)
 
