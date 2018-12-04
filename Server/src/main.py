@@ -145,9 +145,9 @@ if __name__ == '__main__':
         pkl_in.close()
 
     elif choice == '2':  # Sample users and posts
-        server.add_user("user", "John", "Doe", "email@email.com", "PASS")
-        server.add_user("Billybob", "Bill", "Bob", "email@email.com", "PASS")
-        server.add_user("Guy", "Jane", "Smith", "email@email.com", "PASS")
+        server.add_user("John", "Doe", "email@email.com", "user", "PASS")
+        server.add_user("Bill", "Bob", "email@email.com", "Billybob", "PASS")
+        server.add_user("Jane", "Smith", "email@email.com", "Guy", "PASS")
 
         server.add_post("user", "This is a test")
         server.add_post("Guy", "This is also a test")
@@ -170,6 +170,8 @@ if __name__ == '__main__':
 
         print(server.user_json())
         print(server.post_json())
+
+        print(server.auth("user", "PASS"))
 
         server.save()
 

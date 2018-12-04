@@ -11,10 +11,9 @@ class Server:
 
     def auth(self, username, password):  # Check if username and password are in the server
         for user in self.users:
-            if user.username == username and password == user.password:
-                return self.get_user_json(user)
-            else:
-                return "Not found"
+            if str(user.get_username()) == username and str(user.get_password()) == password:
+                return user.to_json()
+        return "Not found"
 
     def add_user(self, first, last, email, username, password):
         self.users.append(User(first, last, email, username, password))
@@ -68,11 +67,6 @@ class Server:
         parse += ']}'
 
         return parse
-
-    def get_user_json(self, username):
-        for user in self.users:
-            if user.get_username() == username:
-                return user.to_json()
 
     def post_json(self):
         parse = '{"posts":['
