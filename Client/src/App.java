@@ -13,54 +13,43 @@ public class App {
     ArrayList<User> userInfo = new ArrayList<User>();
 
     public static void main(String [] args){
-        int PORT = 65432;
+        int PORT = 9998;
         Client client = new Client(PORT); //streams and connections are setup in client constructor, need to terminate connections using client.terminateConnections()
 
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Welcome to PyBook!\nPlease choose an option");
-        System.out.println("1.-Log in");
-        System.out.println("2.-Create an account");
-        int selection = input.nextInt();
-        switch (selection){
-
-            case 1:
-                System.out.print("Username: ");
-                String username = input.nextLine();
-                System.out.print("Password: ");
-                String password = input.nextLine();
-
-                User theUser = client.logIn(username,password); //the user should have the correct user given credentials
-
-                break;
+        System.out.println("Welcome to PyBook!");
 
 
-            case 2:
+        while(true){
 
-                try{
+            System.out.println("Please choose an option");
 
-                    String firstName, lastName, Cpassword, email, userName, DateOfBirth;
-                    System.out.println("You are now in the sign up page!");
-                    System.out.println("Please enter the following information below ");
-                    System.out.print("First Name: ");
-                    firstName = input.nextLine();
-                    System.out.print("\nLast Name: ");
-                    lastName = input.nextLine();
-                    System.out.print("\nEmail: ");
-                    email = input.nextLine();
-                    System.out.print("\nUsername: ");
-                    userName = input.nextLine();
-                    System.out.print("\nPassword: ");
-                    password = input.nextLine();
-                    System.out.print("\nConfirm Password: ");
-                    Cpassword = input.nextLine();
-                    System.out.print("\nDate Of Birth: ");
-                    DateOfBirth = input.nextLine();
+            System.out.println("1.-Log in");
+            System.out.println("2.-Create an account");
+            int selection = input.nextInt();
+            switch (selection){
+
+                case 1:
+                    System.out.print("Username: ");
+                    String username = input.next();
 
 
-                    while(!validatePassword(password, Cpassword))
-                    {
-                        System.out.println("The information you entered is incorrect, please enter your correct information below.");
+                    System.out.print("Password: ");
+                    String password = input.next();
+
+                    User theUser = client.logIn(username,password); //the user should have the correct credentials
+
+                    break;
+
+
+                case 2:
+
+                    try{
+
+                        String firstName, lastName, Cpassword, email, userName, DateOfBirth;
+                        System.out.println("You are now in the sign up page!");
+                        System.out.println("Please enter the following information below ");
                         System.out.print("First Name: ");
                         firstName = input.nextLine();
                         System.out.print("\nLast Name: ");
@@ -75,24 +64,54 @@ public class App {
                         Cpassword = input.nextLine();
                         System.out.print("\nDate Of Birth: ");
                         DateOfBirth = input.nextLine();
+
+
+                        while(!validatePassword(password, Cpassword))
+                        {
+                            System.out.println("The information you entered is incorrect, please enter your correct information below.");
+                            System.out.print("First Name: ");
+                            firstName = input.nextLine();
+                            System.out.print("\nLast Name: ");
+                            lastName = input.nextLine();
+                            System.out.print("\nEmail: ");
+                            email = input.nextLine();
+                            System.out.print("\nUsername: ");
+                            userName = input.nextLine();
+                            System.out.print("\nPassword: ");
+                            password = input.nextLine();
+                            System.out.print("\nConfirm Password: ");
+                            Cpassword = input.nextLine();
+                            System.out.print("\nDate Of Birth: ");
+                            DateOfBirth = input.nextLine();
+                        }
+                        User newUser = new User(firstName, lastName, email, userName, password,0);
+
+//                    client.addNewUserToServer(newUser); //send to server
+
+                        System.out.println("Welcome " + newUser.getUserName() + " you are signed in!");
+
+                        Date currentDate = new Date();
+                        System.out.println(currentDate);
+
+
+                    }catch(Exception e)
+                    {
+                        System.out.println("Unable to establish a connection to the server.");
                     }
-                    User newUser = new User(firstName, lastName, email, userName, password, Cpassword, DateOfBirth);
 
-                    client.addNewUserToServer(newUser); //send to server
-
-                    System.out.println("Welcome " + newUser.getUserName() + " you are signed in!");
-
-                    Date currentDate = new Date();
-                    System.out.println(currentDate);
+                    break;
 
 
-                }catch(Exception e)
-                {
-                    System.out.println("Unable to establish a connection to the server.");
-                }
+                default:
+                    System.out.println("Enter a correct option");
 
-                break;
+
+            }
+
+            client.terminateConnection();
+
         }
+
     }
 
 

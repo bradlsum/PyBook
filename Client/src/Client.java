@@ -47,9 +47,30 @@ public class Client {
         // client will output a json string with username and password.
         //server will provide a json string if given username and password are correct.
 
+        String getUsernameJSON = "{\"action\":" + "getUser" + ",\"username\":" + username + ",";
+        getUsernameJSON += "\"password\":" + password + "}";
 
-        return new User();//will return the user object provided by server
+        this.sendJSON(getUsernameJSON);
+
+        User user = this.recieveUser();
+
+        return user;
     }
+
+    public User recieveUser(){
+        User theUser = new User();
+
+        try{
+
+            String tempJSON = this.input.readUTF();
+            theUser = theUser.parseJSON(tempJSON);
+        }
+
+        catch(Exception e){
+            e.printStackTrace();}
+        return theUser;
+    }
+
 
     public ArrayList requestPosts(){
         //this function will return an array will all posts contained in server
@@ -118,4 +139,3 @@ public class Client {
 
 
 }
-w
