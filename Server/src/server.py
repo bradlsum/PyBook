@@ -16,7 +16,7 @@ class Server:
             else:
                 return "Not found"
 
-    def add_user(self, username, first, last, email, password):
+    def add_user(self, first, last, email, username, password):
         self.users.append(User(first, last, email, username, password))
 
     def remove_user(self, username):

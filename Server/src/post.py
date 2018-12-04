@@ -7,7 +7,7 @@ class Post(Comment):  # Post object which is used by the Server object to store 
 
     def __init__(self, username, text):
         super().__init__(username, text)
-
+        self._ID += 1
         self.comments = []
         self.likes = []
 
