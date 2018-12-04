@@ -35,6 +35,12 @@ class User:  # User object which is used by the server object to store user info
     def set_password(self, password):
         self.password = password
 
+    def get_username(self):
+        return self.username
+
+    def set_username(self):
+        self.username
+
     def to_json(self):
         temp = '{"id":"' + str(self.id) + '","first":"' + self.first_name + '",'
         temp += '"last":"' + self.last_name + '","email":"' + self.email + '",'
