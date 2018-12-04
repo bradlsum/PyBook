@@ -114,11 +114,11 @@ def service_connection(key, mask, server):
             print('closing connection to', data.addr)
             sel.unregister(sock)
             sock.close()
-    if mask & selectors.EVENT_WRITE:
-        if data.outb:
-            print('echoing', repr(data.outb), 'to', data.addr)
-            sent = sock.send(data.outb)  # Should be ready to write
-            data.outb = data.outb[sent:]
+    # if mask & selectors.EVENT_WRITE:
+        # if data.outb:
+            # print('echoing', repr(data.outb), 'to', data.addr)
+            # sent = sock.send(data.outb)  # Should be ready to write
+            # data.outb = data.outb[sent:]
 
 
 if __name__ == '__main__':

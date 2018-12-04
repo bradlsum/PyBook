@@ -64,7 +64,7 @@ class Server:
             parse += ','
         parse = parse[0: len(parse) - 1]
 
-        parse += ']}'
+        parse += ']}\n'
 
         return parse
 
@@ -77,7 +77,7 @@ class Server:
             parse += ','
         parse = parse[0: len(parse) - 2]
 
-        parse += '}]}'
+        parse += '}]}\n'
 
         return parse
 
