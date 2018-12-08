@@ -12,8 +12,8 @@ class Server:
     def auth(self, username, password):  # Check if username and password are in the server
         for user in self.users:
             if str(user.get_username()) == username and str(user.get_password()) == password:
-                return user.to_json()
-        return "Not found"
+                return "true\n"
+        return "false\n"
 
     def add_user(self, first, last, email, username, password):
         self.users.append(User(first, last, email, username, password))
