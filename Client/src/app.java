@@ -1,7 +1,9 @@
+import netscape.javascript.JSObject;
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.io.*;
 import java.util.Scanner;
+import org.json.*;
 import java.util.regex.*;
 import java.util.ArrayList;
 import java.net.ServerSocket;
@@ -108,9 +110,12 @@ public class app {
                 System.out.println("What would you like to do?\n" +
                         "1. Print posts.\n" +
                         "2. Create a post.\n" +
-                        "3. Like a post.\n" +
-                        "4. Comment on a post\n" +
-                        "5. Log out of your account.\n" +
+                        "3. Remove a post.\n" +
+                        "4. Like a post.\n" +
+                        "5. Remove a like from a post.\n" +
+                        "6. Comment on a post\n" +
+                        "7. Delete comment from a post.\n" +
+                        "8. Log out of your account.\n" +
                         "Input: ");
 
                 choice = sc.nextInt();
@@ -118,23 +123,36 @@ public class app {
 
                 if (choice == 1) {
                     send(client, getPosts);
-                    System.out.println(recieve(client));
+                    String posts = recieve(client);
+//                    System.out.println(posts);
+                    printPosts(posts);
                 } else if (choice == 2) {
                     System.out.print("Enter your post:");
                     String text = sc.nextLine();
 
                     send(client, addPost(client, userName, text));
-                }  else if (choice == 3) {
+                } else if (choice == 3) {
                     String id;
-
                     send(client, getPosts);
-                    System.out.println(recieve(client));
+                    printPosts(recieve(client));
+                    System.out.println("What post would you like to remove?");
+                    id = sc.nextLine();
 
+                    send(client, removePost(userName, id));
+                } else if (choice == 4) {
+                    String id;
                     System.out.println("Who's post would you like to like?");
                     id = sc.nextLine();
 
                     send(client, addLike(client, id, userName));
-                } else if (choice == 4){
+                } else if (choice == 5) {
+                    String id;
+                    send(client, getPosts);
+                    System.out.println("Who's post would you like to like?");
+                    id = sc.nextLine();
+
+                    send(client, removeLike(userName, id));
+                } else if (choice == 6) {
                     String id, comment;
 
                     send(client, getPosts);
@@ -147,7 +165,18 @@ public class app {
                     comment = sc.nextLine();
 
                     send(client, addComment(client, id, userName, comment));
-                } else if (choice == 5) {
+                } else if (choice == 7) {
+                    String pid;
+                    String cid;
+                    send(client, getPosts);
+                    System.out.println(recieve(client));
+                    System.out.println("Who's post would you like to remove the comment from?");
+                    pid = sc.nextLine();
+                    System.out.println("Which comment would you like to remove?");
+                    cid = sc.nextLine();
+
+                    send(client, removeComment(userName, pid, cid));
+                } else if (choice == 8) {
                     send(client, exit);
                     client.close();
 
@@ -157,7 +186,7 @@ public class app {
                 } else {
                     System.out.println("Invalid choice.");
                 }
-            } while (choice != 4);
+            } while (choice != 8);
 
         } catch (Exception e) {
             System.out.println("Unable to establish a connection.");
@@ -235,7 +264,7 @@ public class app {
         return ("{" +
                 "  \"action\":\"removePost\"," +
                 "  \"pid\":\"" + pid + "\"," +
-                "  \"username\":\"" + username + "\"," +
+                "  \"username\":\"" + username + "\"" +
                 "}");
     }
 
@@ -255,5 +284,25 @@ public class app {
                 "  \"username\":\"" + username + "\"," +
                 "}");
     }
+
+    public static void printPosts(String posts) {
+        try {
+            JSONObject obj = new JSONObject(posts);
+            System.out.printf("______________________________\n");
+            System.out.println(obj.toString(2));
+            System.out.printf("______________________________\n");
+//            JSONArray postList = new JSONArray("posts");
+//            for(int i = 0; i < postList.length(); i++) {
+//                String id = postList.getJSONObject(i).getString("id");
+//                System.out.printf("____________________\n");
+//                System.out.printf("|id:             %s\n", id);
+//                System.out.printf("|                  \n");
+//                System.out.printf("____________________\n");
+//            }
+        } catch (JSONException e) {
+            System.out.printf("Caught JSONException - %s", e);
+        }
+    }
 }
+
 
