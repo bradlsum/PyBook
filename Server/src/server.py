@@ -28,31 +28,31 @@ class Server:
 
     def remove_post(self, id):
         for post in self.posts:
-            if post.id == id:
+            if post.id == int(id):
                 self.posts.remove(post)
 
     # Adds a like to a specified post
     def add_like(self, post_id, user):
         for post in self.posts:
-            if post.id == post_id:
+            if post.id == int(post_id):
                 post.add_like(user)
 
     # Removes a like from a post
     def remove_like(self, post_id, user):
         for post in self.posts:
-            if post.id == post_id:
+            if post.id == int(post_id):
                 post.remove_like(user)
 
     # Add a comment to a post
     def add_comment(self, post_id, user, text):
         for post in self.posts:
-            if post.id == post_id:
+            if post.id == int(post_id):
                 post.add_comment(user, text)
 
     # Removes a comment from a post
     def remove_comment(self, post_id, comment_id):
         for post in self.posts:
-            if post.id == post_id:
+            if post.id == int(post_id):
                 post.remove_comment(comment_id)
 
     def user_json(self):

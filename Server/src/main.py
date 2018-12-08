@@ -152,21 +152,21 @@ if __name__ == '__main__':
         server.add_post("user", "This is a test")
         server.add_post("Guy", "This is also a test")
 
-        print(server.post_json())
-        server.remove_post("p1")
-        print(server.post_json())
-        server.add_comment("p0", "user", "test comment")
+        # print(server.post_json())
+        # server.remove_post("p1")
+        # print(server.post_json())
+        server.add_comment(0, "user", "test comment")
         print(server.post_json())
 
         server.add_comment(0, "Guy", "Really cool!")
         server.add_comment(0, "Billybob", "wow!")
 
-        server.remove_comment(0, 2)
+        # server.remove_comment(0, 2)
 
         server.add_like(1, "Guy")
         server.add_like(1, "user")
 
-        server.remove_like(1, "Guy")
+        # server.remove_like(1, "Guy")
 
         print(server.user_json())
         print(server.post_json())

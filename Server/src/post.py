@@ -17,7 +17,7 @@ class Post(Comment):  # Post object which is used by the Server object to store 
 
     def remove_comment(self, id):
         for comment in self.comments:
-            if comment.id == id:
+            if comment.id == int(id):
                 self.comments.remove(comment)
 
     # Add and remove like from a post

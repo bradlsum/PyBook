@@ -148,7 +148,7 @@ public class app {
                 } else if (choice == 5) {
                     String id;
                     send(client, getPosts);
-                    System.out.println("Who's post would you like to like?");
+                    System.out.println("Who's post would you like to unlike?");
                     id = sc.nextLine();
 
                     send(client, removeLike(userName, id));
@@ -273,7 +273,7 @@ public class app {
                 "  \"action\":\"removeComment\"," +
                 "  \"pid\":\"" + pid + "\"," +
                 "  \"cid\":\"" + cid + "\"," +
-                "  \"username\":\"" + username + "\"," +
+                "  \"username\":\"" + username + "\"" +
                 "}");
     }
 
@@ -281,7 +281,7 @@ public class app {
         return ("{" +
                 "  \"action\":\"removeLike\"," +
                 "  \"pid\":\"" + pid + "\"," +
-                "  \"username\":\"" + username + "\"," +
+                "  \"username\":\"" + username + "\"" +
                 "}");
     }
 
